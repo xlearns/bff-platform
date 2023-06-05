@@ -1,5 +1,5 @@
 import { HttpAdapterHost } from '@nestjs/core';
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver()
 export class StatusResolver {
@@ -11,5 +11,15 @@ export class StatusResolver {
     return `The ${this.httpHost.httpAdapter.getType()} server is up and running for ${
       (Date.now() - this.startedAt.getTime()) / 1000
     } seconds.`;
+  }
+  
+  @Query(() => String)
+  async test() {
+    return "hello world"
+  }
+
+  @Query(() => String)
+  async args(@Args('parse') parse: string) {
+    return `hello world ${parse}`
   }
 }

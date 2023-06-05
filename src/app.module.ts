@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { join } from 'node:path';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 //mysql
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,16 +18,23 @@ import { StatusResolver } from './resolver/status.resolver';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: '',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: '123456',
-    //   database: 'test',
-    //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    //   synchronize: true,
-    // }),
+    TypeOrmModule.forRootAsync({
+      useFactory: async (config:ConfigService)=>{
+      return {
+        "type": "mysql",
+        "host": config.get('MYSQL_URL'),
+        "port": config.get('MYSQL_PORT'),
+        "username": config.get('MYSQL_USER'),
+        "password": config.get('MYSQL_PASSWD'),
+        "database": config.get('MYSQL_DB'),
+        "entities": [
+          "dist/src/entities/*.ts"
+        ],
+        "synchronize": config.get('MYSQL_ISSync')
+      }
+    },
+    inject: [ConfigService],
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: true,

@@ -2,8 +2,37 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createUser(parse: String!): UserType!
+  deleteUser(parse: String!): UserType!
+  updateUser(parse: String!): UserType!
+}
+
 type Query {
-  args(parse: String!): String!
-  status: String!
+  User(parse: String!): String!
   test: String!
+}
+
+type Subscription {
+  subsUser(parse: String!): UserType!
+}
+
+type UserType {
+  """User avatar url"""
+  avatarUrl: String
+
+  """User created date"""
+  createdAt: DateTime
+
+  """User email"""
+  email: String!
+  id: ID!
+
+  """User name"""
+  name: String!
 }

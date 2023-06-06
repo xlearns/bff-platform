@@ -1,3 +1,11 @@
+# features
+- Data aggregation and clipping
+- SSR
+- Screenshots
+- Uploading and downloading
+- Interface forwarding
+
+
 # playground
 ```
 query{

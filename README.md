@@ -1,18 +1,17 @@
 # playground
 ```
- query {
-    test
-    status
-    args(parse: "hello world")
- }
-
- mutation{
-  createUser(parse:"1"){
-    avatarUrl
+query{
+  getAllStatus{
+    code
   }
-  deleteUser(parse:"1"){
-    createdAt
-    avatarUrl
+  getStatusById(id:1){
+    code
+  }
+  getAllUsers{
+    name
+  }
+  getUserById(id:1){
+    name
   }
 }
 

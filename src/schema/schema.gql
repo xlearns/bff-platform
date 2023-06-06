@@ -2,27 +2,56 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserInput {
+  """User email"""
+  email: String!
+  id: ID!
+
+  """User name"""
+  name: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
 type Mutation {
-  createUser(parse: String!): UserType!
-  deleteUser(parse: String!): UserType!
-  updateUser(parse: String!): UserType!
+  createStatus: StatusType!
+  createUser(createUserInput: CreateUserInput!): User!
+  removeStatus(id: Int!): StatusType!
+  removeUser(id: Int!): User!
+  updateStatus(updateStatusInput: UpdateStatusInput!): StatusType!
+  updateUser(updateUserInput: CreateUserInput!): User!
 }
 
 type Query {
-  User(parse: String!): String!
-  test: String!
+  getAllStatus: StatusType!
+  getAllUsers: User!
+  getStatusById(id: Int!): StatusType!
+  getUserById(id: Int!): User!
 }
 
-type Subscription {
-  subsUser(parse: String!): UserType!
+type StatusType {
+  """status code"""
+  code: Float
+  id: ID!
+
+  """status code"""
+  msg: String
 }
 
-type UserType {
+input UpdateStatusInput {
+  id: ID!
+
+  """User state"""
+  state: String!
+
+  """User status"""
+  status: String!
+}
+
+type User {
   """User avatar url"""
   avatarUrl: String
 
@@ -34,5 +63,5 @@ type UserType {
   id: ID!
 
   """User name"""
-  name: String!
+  name: String
 }

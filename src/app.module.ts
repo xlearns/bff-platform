@@ -10,11 +10,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 //graphql
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { StatusResolver } from './resolver/status.resolver';
+import { ResolverModule } from './resolver/resolver.module';
 
 
 @Module({
   imports: [
+    ResolverModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -44,6 +45,6 @@ import { StatusResolver } from './resolver/status.resolver';
     }),
   ],
   controllers: [AppController],
-  providers: [StatusResolver, AppService],
+  providers: [AppService],
 })
 export class AppModule {}

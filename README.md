@@ -1,12 +1,15 @@
 # features
-- Data aggregation and clipping
-- SSR
-- Screenshots
-- Uploading and downloading
-- Interface forwarding
 
+- Data aggregation and clipping.
+  - graphql
+- SSR.
+- Screenshots.
+- Uploading and downloading.
+- Interface forwarding.
+- The backend will be refactored using the Go framework Gin.
 
 # playground
+
 ```
 query{
   getAllStatus{

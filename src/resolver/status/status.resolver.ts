@@ -1,34 +1,29 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { StatusService } from './status.service';
-import { StatusType, UpdateStatusInput } from './status.type';
+import { CommonResponse, statusResponse, stateResponse } from './status.type';
+import { Inject } from '@nestjs/common';
 
-
-@Resolver(() => StatusType)
+@Resolver('Status')
 export class StatusResolver {
-  constructor(private readonly StatusService: StatusService) {}
+  constructor(
+    @Inject(StatusService) private readonly StatusService: StatusService,
+  ) {}
 
-  @Mutation(() => StatusType)
-  createStatus() {
-    return this.StatusService.create();
+  @Query(() => statusResponse, { name: 'findStatus' })
+  async findAll() {
+    const data = await this.StatusService.findAll();
+    return { code: 200, message: '查询成功', data };
   }
 
-  @Query(() => StatusType, { name: 'getAllStatus' })
-  findAll() {
-    return this.StatusService.findAll();
+  @Query(() => stateResponse, { name: 'findOneStatus' })
+  async findOne(@Args('id', { type: () => Int }) id: number) {
+    const data = await this.StatusService.findOne(id);
+    return { code: 200, message: '查询成功', data };
   }
 
-  @Query(() => StatusType, { name: 'getStatusById' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.StatusService.findOne(id);
-  }
-
-  @Mutation(() => StatusType)
-  updateStatus(@Args('updateStatusInput',{ type: () => UpdateStatusInput }) updateStatusInput) {
-    return this.StatusService.update(updateStatusInput.id, updateStatusInput);
-  }
-
-  @Mutation(() => StatusType)
-  removeStatus(@Args('id', { type: () => Int }) id: number) {
-    return this.StatusService.remove(id);
+  @Mutation(() => CommonResponse, { name: 'deleteStatus' })
+  async deleteStatus(@Args('id') id: number) {
+    await this.StatusService.remove(id);
+    return { code: 200, message: '删除成功' };
   }
 }

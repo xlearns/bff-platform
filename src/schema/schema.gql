@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CommonResponse {
+  """status code"""
+  code: Float
+
+  """status code"""
+  message: String
+}
+
 input CreateUserInput {
   """User email"""
   email: String!
@@ -17,38 +25,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createStatus: StatusType!
   createUser(createUserInput: CreateUserInput!): User!
-  removeStatus(id: Int!): StatusType!
+  deleteStatus(id: Float!): CommonResponse!
   removeUser(id: Int!): User!
-  updateStatus(updateStatusInput: UpdateStatusInput!): StatusType!
   updateUser(updateUserInput: CreateUserInput!): User!
 }
 
 type Query {
-  getAllStatus: StatusType!
+  findOneStatus(id: Int!): stateResponse!
+  findStatus: statusResponse!
   getAllUsers: User!
-  getStatusById(id: Int!): StatusType!
   getUserById(id: Int!): User!
 }
 
 type StatusType {
   """status code"""
-  code: Float
+  host: String
   id: ID!
 
   """status code"""
-  msg: String
-}
+  password: Float
 
-input UpdateStatusInput {
-  id: ID!
-
-  """User state"""
-  state: String!
-
-  """User status"""
-  status: String!
+  """status code"""
+  port: Float
 }
 
 type User {
@@ -64,4 +63,24 @@ type User {
 
   """User name"""
   name: String
+}
+
+type stateResponse {
+  """status code"""
+  code: Float
+
+  """status code"""
+  data: StatusType
+
+  """status code"""
+  message: String
+}
+
+type statusResponse {
+  """status code"""
+  code: Float
+  data: [StatusType!]!
+
+  """status code"""
+  message: String
 }

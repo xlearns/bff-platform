@@ -12,7 +12,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ResolverModule } from './resolver/resolver.module';
 
-
 @Module({
   imports: [
     ResolverModule,
@@ -20,21 +19,20 @@ import { ResolverModule } from './resolver/resolver.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: async (config:ConfigService)=>{
-      return {
-        "type": "mysql",
-        "host": config.get('MYSQL_URL'),
-        "port": config.get('MYSQL_PORT'),
-        "username": config.get('MYSQL_USER'),
-        "password": config.get('MYSQL_PASSWD'),
-        "database": config.get('MYSQL_DB'),
-        "entities": [
-          "dist/src/entities/*.ts"
-        ],
-        "synchronize": config.get('MYSQL_ISSync')
-      }
-    },
-    inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        return {
+          type: 'mysql',
+          host: config.get('MYSQL_URL'),
+          port: config.get('MYSQL_PORT'),
+          username: config.get('MYSQL_USER'),
+          password: config.get('MYSQL_PASSWD'),
+          database: config.get('MYSQL_DB'),
+          entities: ['dist/src/entities/*.ts'],
+          synchronize: config.get('MYSQL_ISSync'),
+          autoLoadEntities: true,
+        };
+      },
+      inject: [ConfigService],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

@@ -8,22 +8,6 @@
 - Interface forwarding.
 - The backend will be refactored using the Go framework Gin.
 
-# playground
+# GraphQL Playground Request Demo
 
-```
-query{
-  getAllStatus{
-    code
-  }
-  getStatusById(id:1){
-    code
-  }
-  getAllUsers{
-    name
-  }
-  getUserById(id:1){
-    name
-  }
-}
-
-```
+![search all](./example/search_all.png)

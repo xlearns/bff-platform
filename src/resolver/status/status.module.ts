@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { StatusService } from './status.service';
 import { StatusResolver } from './status.resolver';
 
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Serve } from '../../entities/Serve';
+
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Serve])],
   providers: [StatusResolver, StatusService],
-  exports:[StatusService]
+  exports: [StatusService],
 })
 export class StatusModule {}

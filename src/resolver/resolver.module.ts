@@ -3,6 +3,6 @@ import { UserModule } from './user/user.module';
 import { StatusModule } from './status/status.module';
 
 @Module({
-  imports: [UserModule,StatusModule]
+  imports: [UserModule, StatusModule],
 })
 export class ResolverModule {}

@@ -10,4 +10,11 @@
 
 # GraphQL Playground Request Demo
 
-![search all](./example/search_all.png)
+- search all
+  ![search all](./example/search_all.png)
+- create
+  ![create](./example/create.png)
+- delete
+  ![delete](./example/delete.png)
+- search one
+  ![search one](./example/search_one.png)

@@ -1,16 +1,18 @@
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 // must auto gen schema-> shema.gql
 
 @ObjectType()
 export class StatusType {
-  @Field(() => ID)
-  id!: string;
+  @Field(() => Int, { nullable: true })
+  id: number;
   @Field({ description: 'status code', nullable: true })
-  password!: number;
+  password!: string;
   @Field({ description: 'status code', nullable: true })
   host!: string;
   @Field({ description: 'status code', nullable: true })
-  port!: number;
+  port!: string;
+  @Field({ description: 'status code', nullable: true })
+  user!: string;
 }
 
 @ObjectType()
@@ -39,4 +41,19 @@ export class statusResponse {
   message: string;
   @Field(() => [StatusType])
   data: StatusType[];
+}
+
+@InputType()
+export class CreateStateInput {
+  @Field({ description: 'User name' })
+  user!: string;
+
+  @Field({ description: 'User email' })
+  password!: string;
+
+  @Field({ description: 'User email' })
+  host!: string;
+
+  @Field({ description: 'User email' })
+  port!: number;
 }

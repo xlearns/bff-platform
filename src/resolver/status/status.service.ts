@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Serve } from '../../entities/Serve';
+import { Serve } from 'src/entities/Serve';
 
 @Injectable()
 export class StatusService {
@@ -10,8 +10,8 @@ export class StatusService {
     @InjectRepository(Serve) private readonly ServeRepo: Repository<Serve>,
   ) {}
 
-  create() {
-    return `This action adds a new Status`;
+  async create(serve: Serve): Promise<Serve> {
+    return this.ServeRepo.save(this.ServeRepo.create(serve));
   }
 
   async findAll() {
@@ -19,23 +19,24 @@ export class StatusService {
     return data;
   }
 
-  private async findOneById(id): Promise<Serve> {
-    const serveInfo = await this.ServeRepo.findOne(id);
+  private async findOneById(id: number): Promise<Serve> {
+    const serveInfo = await this.ServeRepo.findOne({ where: { id } });
     if (!serveInfo) {
-      throw new HttpException(`not fount`, 404);
+      throw new HttpException(`指定 id=${id} 的status不存在`, 404);
     }
     return serveInfo;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} Status`;
+  async findOne(id: number) {
+    return this.findOneById(id);
   }
 
   update(id: number, updateStatusInput) {
     return `This action updates a #${id} Status`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} Status`;
+  async remove(id: number): Promise<void> {
+    await this.findOneById(id);
+    this.ServeRepo.delete(id);
   }
 }

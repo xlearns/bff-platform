@@ -10,6 +10,20 @@ type CommonResponse {
   message: String
 }
 
+input CreateStateInput {
+  """User email"""
+  host: String!
+
+  """User email"""
+  password: String!
+
+  """User email"""
+  port: Float!
+
+  """User name"""
+  user: String!
+}
+
 input CreateUserInput {
   """User email"""
   email: String!
@@ -25,8 +39,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
+  createState(state: CreateStateInput!): CommonResponse!
   createUser(createUserInput: CreateUserInput!): User!
-  deleteStatus(id: Float!): CommonResponse!
+  deleteStatus(id: Int!): CommonResponse!
   removeUser(id: Int!): User!
   updateUser(updateUserInput: CreateUserInput!): User!
 }
@@ -41,13 +56,16 @@ type Query {
 type StatusType {
   """status code"""
   host: String
-  id: ID!
+  id: Int
 
   """status code"""
-  password: Float
+  password: String
 
   """status code"""
-  port: Float
+  port: String
+
+  """status code"""
+  user: String
 }
 
 type User {

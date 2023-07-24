@@ -2,13 +2,14 @@
 
 - Data aggregation and clipping.
   - graphql
+    - Introducing DataLoader to solve the N+1 problem in GraphQL.
+    - GraphQL caching
 - SSR.
 - Screenshots.
 - Uploading and downloading.
 - Interface forwarding.
+- Micro service.
 - The backend will be refactored using the Go framework Gin.
-- Introducing DataLoader to solve the N+1 problem in GraphQL.
-- GraphQL caching
 
 # GraphQL Playground Request Demo
 

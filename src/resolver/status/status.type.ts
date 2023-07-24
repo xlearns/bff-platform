@@ -16,14 +16,6 @@ export class StatusType {
 }
 
 @ObjectType()
-export class CommonResponse {
-  @Field({ description: 'status code', nullable: true })
-  code: number;
-  @Field({ description: 'status code', nullable: true })
-  message: string;
-}
-
-@ObjectType()
 export class stateResponse {
   @Field({ description: 'status code', nullable: true })
   code: number;

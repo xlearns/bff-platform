@@ -1,32 +1,42 @@
-import { ObjectType, Field, ID, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateUserInput {
-  @Field(() => ID)
-  id!: number;
+  @Field({ description: 'User name' })
+  name!: string;
+
+  @Field({ description: 'User email' })
+  password!: string;
+}
+
+@ObjectType()
+export class User {
+  @Field(() => Int)
+  id: number;
 
   @Field({ description: 'User name' })
   name!: string;
 
   @Field({ description: 'User email' })
-  email!: string;
+  password!: string;
 }
 
 @ObjectType()
-export class User {
-  @Field(() => ID)
-  id!: string;
+export class userResponse {
+  @Field({ description: 'status code', nullable: true })
+  code: number;
+  @Field({ description: 'status code', nullable: true })
+  message: string;
+  @Field({ description: 'status code', nullable: true })
+  data: User;
+}
 
-  @Field({ description: 'User name', nullable: true })
-  name!: string;
-
-  @Field({ description: 'User email' })
-  email!: string;
-
-  //nullable:true allows null values
-  @Field({ description: 'User avatar url', nullable: true })
-  avatarUrl!: string;
-
-  @Field({ description: 'User created date', nullable: true })
-  createdAt!: Date;
+@ObjectType()
+export class usersResponse {
+  @Field({ description: 'status code', nullable: true })
+  code: number;
+  @Field({ description: 'status code', nullable: true })
+  message: string;
+  @Field(() => [User])
+  data: User[];
 }

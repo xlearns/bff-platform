@@ -7,6 +7,8 @@
 - Uploading and downloading.
 - Interface forwarding.
 - The backend will be refactored using the Go framework Gin.
+- Introducing DataLoader to solve the N+1 problem in GraphQL.
+- GraphQL caching
 
 # GraphQL Playground Request Demo
 
@@ -18,3 +20,5 @@
   ![delete](./example/delete.png)
 - search one
   ![search one](./example/search_one.png)
+- federation interface
+  ![federation interface](./example/federation.png)

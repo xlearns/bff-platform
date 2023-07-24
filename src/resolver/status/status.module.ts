@@ -3,7 +3,7 @@ import { StatusService } from './status.service';
 import { StatusResolver } from './status.resolver';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Serve } from '../../entities/Serve';
+import { Serve } from 'src/entities/Serve';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Serve])],

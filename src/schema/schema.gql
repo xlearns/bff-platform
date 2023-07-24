@@ -10,6 +10,11 @@ type CommonResponse {
   message: String
 }
 
+input CreateFederationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateStateInput {
   """User email"""
   host: String!
@@ -25,32 +30,40 @@ input CreateStateInput {
 }
 
 input CreateUserInput {
-  """User email"""
-  email: String!
-  id: ID!
-
   """User name"""
   name: String!
+
+  """User email"""
+  password: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type Federation {
+  """Example field (placeholder)"""
+  message: String
+}
 
 type Mutation {
+  createFederation(createFederationInput: CreateFederationInput!): Federation!
   createState(state: CreateStateInput!): CommonResponse!
-  createUser(createUserInput: CreateUserInput!): User!
+  createUser(user: CreateUserInput!): CommonResponse!
   deleteStatus(id: Int!): CommonResponse!
-  removeUser(id: Int!): User!
-  updateUser(updateUserInput: CreateUserInput!): User!
+  removeFederation(id: Int!): Federation!
+  updateFederation(updateFederationInput: UpdateFederationInput!): Federation!
 }
 
 type Query {
+  findFeders: Response!
+  findOneFeder(id: Int!): Federation!
   findOneStatus(id: Int!): stateResponse!
+  findOneUser(id: Int!): userResponse!
   findStatus: statusResponse!
-  getAllUsers: User!
-  getUserById(id: Int!): User!
+  findUsers: usersResponse!
+}
+
+type Response {
+  code: Int!
+  serve: [StatusType!]
+  user: [User!]
 }
 
 type StatusType {
@@ -68,19 +81,20 @@ type StatusType {
   user: String
 }
 
+input UpdateFederationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
 type User {
-  """User avatar url"""
-  avatarUrl: String
-
-  """User created date"""
-  createdAt: DateTime
-
-  """User email"""
-  email: String!
-  id: ID!
+  id: Int!
 
   """User name"""
-  name: String
+  name: String!
+
+  """User email"""
+  password: String!
 }
 
 type stateResponse {
@@ -98,6 +112,26 @@ type statusResponse {
   """status code"""
   code: Float
   data: [StatusType!]!
+
+  """status code"""
+  message: String
+}
+
+type userResponse {
+  """status code"""
+  code: Float
+
+  """status code"""
+  data: User
+
+  """status code"""
+  message: String
+}
+
+type usersResponse {
+  """status code"""
+  code: Float
+  data: [User!]!
 
   """status code"""
   message: String

@@ -1,13 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { StatusService } from './status.service';
-import {
-  CommonResponse,
-  statusResponse,
-  stateResponse,
-  CreateStateInput,
-} from './status.type';
+import { statusResponse, stateResponse, CreateStateInput } from './status.type';
 import { Inject } from '@nestjs/common';
-import { Result } from 'src/common/result.interface';
+import { CommonResponse, Result } from 'src/common/result.interface';
 import { Serve } from 'src/entities/Serve';
 
 @Resolver('Status')

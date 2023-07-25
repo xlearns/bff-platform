@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ScreenshotsService } from './screenshots.service';
 import type { Response } from 'express';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('screenshots')
 export class ScreenshotsController {
@@ -29,6 +30,25 @@ export class ScreenshotsController {
     res.end(Buffer, 'binary');
   }
 
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        url: {
+          type: 'string',
+        },
+        dom: {
+          type: 'string',
+        },
+        width: {
+          type: 'number',
+        },
+        height: {
+          type: 'number',
+        },
+      },
+    },
+  })
   @Post()
   async pscreenshot(
     @Body('url') url: string,
